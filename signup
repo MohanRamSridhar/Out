@@ -1,0 +1,61 @@
+import SwiftUI
+import FirebaseAuth
+
+struct ContentView: View {
+    @State private var email: String = ""
+    @State private var password: String = ""
+    
+    var body: some View {
+        NavigationView{
+            ZStack{
+                Image("backgroundGradient")
+                    .opacity(0.9)
+                VStack{
+                    Spacer()
+                    Image("COut")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 300, height: 300)
+                    TextField("Email",text: $email)
+                        .padding(.all)
+                        .frame(width: 300.0, height: 50.0)
+                        .textFieldStyle(.roundedBorder)
+                        .autocapitalization(.none)
+                        .controlSize(/*@START_MENU_TOKEN@*/.extraLarge/*@END_MENU_TOKEN@*/)
+                    SecureField("Passowrd",text: $password)
+                        .padding([.leading, .bottom, .trailing])
+                        .frame(width: 300.0, height: 50.0)
+                        .autocapitalization(.none)
+                        .textFieldStyle(.roundedBorder)
+                        .padding(30)
+                        .controlSize(/*@START_MENU_TOKEN@*/.regular/*@END_MENU_TOKEN@*/)
+                    Button(action: {
+                        Auth.auth().createUser(withEmail: email, password: password)
+                        
+                    }, label: {
+                        RoundedRectangle(cornerRadius: 15.0)
+                            .opacity(0.9)
+                            .blur(radius: 3.5)
+                            .overlay {
+                                Text("Create Account")
+                                    .foregroundColor(.white)
+                            }
+                            .frame(width: 130,height: 40.0)
+                            .foregroundColor(Color(hue: 0.658, saturation: 0.819, brightness: 0.976))
+                            .shadow(radius: 5,x:2)
+                            
+                    })
+                    .padding(.all)
+                    .frame(width: 75.0, height: 30.0)
+                    Spacer()
+                    Spacer()
+                }
+            }
+        }
+    }
+}
+
+#Preview {
+    ContentView()
+}
+
